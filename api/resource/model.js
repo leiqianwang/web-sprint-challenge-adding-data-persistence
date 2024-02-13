@@ -6,10 +6,13 @@ function findResource() {
 
 }
 
-function postResource() {
-    
+function postResource(resource) {
+    return db('resources')
+        .insert(resource)
+        .then(([resource_id]) => {
+            return db('resources').where({ resource_id }).first();
+        });
 }
-
 
 module.exports = {
     findResource,
