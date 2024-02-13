@@ -8,7 +8,7 @@ exports.up = function(knex) {
       tbl.increments('project_id');
       tbl.string('project_name', 128).unique().notNullable();
       tbl.text('project_description').nullable(); // Optional
-      tbl.integer('project_completed').defaultTo(0); // Default to false, using integer for broader DB compatibility
+      tbl.boolean('project_completed').defaultTo(false); // Default to false, using integer for broader DB compatibility
     })
     .then(function () {
       // After 'projects' is created, create 'resources'
@@ -23,8 +23,8 @@ exports.up = function(knex) {
       return knex.schema.createTable('tasks', tbl => {
         tbl.increments('task_id');
         tbl.text('task_description').notNullable();
-        tbl.text('task_notes').nullable(); // Optional
-        tbl.integer('task_completed').defaultTo(0);
+        tbl.text('task_notes'); // Optional
+        tbl.boolean('task_completed').defaultTo(false);
         tbl.integer('project_id')
           .unsigned()
           .notNullable()
