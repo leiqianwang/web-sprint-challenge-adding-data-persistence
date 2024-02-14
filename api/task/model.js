@@ -32,7 +32,7 @@ function postTask(task) {
     };
 
     return db('tasks')
-        .insert(taskForDb, 'task_id')
+        .insert(taskForDb)
         .then(ids => {
             return db('tasks').where({ task_id: ids[0] }).first();
         })

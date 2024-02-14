@@ -29,7 +29,7 @@ function postProject(project) {
     //     }));
 
         return db('projects')
-        .insert(project, 'project_id')
+        .insert(project)
         .then(ids => {
             return db('projects')
                 .where({ project_id: ids[0] })
