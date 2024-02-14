@@ -3,7 +3,12 @@ const db = require('../../data/dbConfig.js');
 
 
 function findResource() {
-
+    return db('resources as r')
+        .select('r.resource_id', 'r.resource_name', 'r.resource_description')
+        .then(resources => resources.map(resource => ({
+            ...resource,
+            resource_id: resource.resource_id
+        })));
 }
 
 function postResource(resource) {

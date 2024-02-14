@@ -21,31 +21,18 @@ router.get('/', (req, res, next) => {
 // Assuming validation logic needs to be compacted as well
 router.post('/', async (req, res, next) => {
 
-    const { project_name, project_description, project_completed } = req.body;
+//     const { project_name, project_description, project_completed } = req.body;
 
-    // Basic validation for project_name
-    if (!project_name || typeof project_name !== 'string' || !project_name.trim()) {
-        return res.status(400).json({ message: 'Invalid project_name' });
-    }
+//     // Basic validation for project_name
+//     if (!project_name || typeof project_name !== 'string' || !project_name.trim()) {
+//         return res.status(400).json({ message: 'Invalid project_name' });
+//     }
 
-    const projectData = {
-        project_name,
-        project_description,
-        project_completed
-    };
-
-    try {
-        const newProject = await Projects.postProject(projectData);
-        if (newProject) {
-            res.status(201).json(newProject);
-        } else {
-            next({ status: 404, message: 'Project not found after creation' });
-        }
-    } catch (error) {
-        next(error);
-    }
-});
-//     const projectData = req.body;
+//     const projectData = {
+//         project_name,
+//         project_description,
+//         project_completed
+//     };
 
 //     try {
 //         const newProject = await Projects.postProject(projectData);
@@ -58,6 +45,19 @@ router.post('/', async (req, res, next) => {
 //         next(error);
 //     }
 // });
+    const projectData = req.body;
+
+    try {
+        const newProject = await Projects.postProject(projectData);
+        if (newProject) {
+            res.status(201).json(newProject);
+        } else {
+            next({ status: 404, message: 'Project not found after creation' });
+        }
+    } catch (error) {
+        next(error);
+    }
+});
    
 
  module.exports = router;
